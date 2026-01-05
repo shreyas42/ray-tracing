@@ -6,7 +6,7 @@ class sphere : public hittable {
   public:
     sphere(const point3& center, float radius) : center(center), radius(std::fmax(radius, 0)) {} 
 
-    bool hit(const ray& r, float ray_tmin, float ray_tmax, hit_record& rec) const override {
+    bool hit(const ray& r, interval ray_t, hit_record& rec) const override {
         vec3 dir = center - r.origin();
         float a = r.direction().length_squared();
         float h = dot(r.direction(), dir);
@@ -20,9 +20,9 @@ class sphere : public hittable {
         float sqrtd = std::sqrt(discriminant);
         float root = (h - sqrtd) / a;
 
-        if(root <= ray_tmin || ray_tmax <= root) {
+        if(!ray_t.surrounds(root)) {
             root = (h + sqrtd) / a;
-            if(root <= ray_tmin || ray_tmax <= root) {
+            if(!ray_t.surrounds(root)) {
                 return false;
             }
         }
