@@ -1,0 +1,46 @@
+{
+    "version": 6,
+    "configurePresets": [
+        {
+            "name": "lsp-base",
+            "displayName": "Base config",
+            "cacheVariables": {
+                "CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
+            }
+        },
+        {
+            "name": "debug",
+            "inherits": "lsp-base",
+            "displayName": "Debug",
+            "generator": "Ninja",
+            "binaryDir": "build/Debug",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug"
+            }
+        },
+        {
+            "name": "release",
+            "inherits": "lsp-base",
+            "displayName": "Release",
+            "generator": "Ninja",
+            "binaryDir": "build/Release",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release"
+            }
+        }
+    ],
+    "buildPresets": [
+        {
+            "name": "debug-build",
+            "displayName": "Build debug version",
+            "configurePreset": "debug",
+            "configuration": "Debug"
+        },
+        {
+            "name": "release-build",
+            "displayName": "Build release version",
+            "configurePreset": "release",
+            "configuration": "Release"
+        }
+    ]
+}
