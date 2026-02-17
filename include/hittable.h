@@ -1,8 +1,12 @@
 #pragma once
 
+// forward declaration
+class material;
+
 struct hit_record {
     point3 p;
     vec3 normal;
+    shared_ptr<material> mat;
     float t;
     bool front_face;
 

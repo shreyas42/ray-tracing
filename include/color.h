@@ -5,10 +5,23 @@
 
 using color = vec3;
 
+inline float linear_to_gamma(float linear_component) {
+    if(linear_component > 0) {
+        return std::sqrt(linear_component);
+    }
+
+    return 0;
+}
+
 void write_color(std::ostream& out, const color& pixel_color) {
     auto r = pixel_color.x();
     auto g = pixel_color.y();
     auto b = pixel_color.z();
+
+    // Convert linear to gamma space for more accurate color representation
+    r = linear_to_gamma(r);
+    g = linear_to_gamma(g);
+    b = linear_to_gamma(b);
 
     // Translate the [0,1] component values to the range [0,255]
     static const interval intensity(0., 0.999);
